@@ -531,7 +531,9 @@ struct output_test_stream::Impl
 output_test_stream::output_test_stream( const_string pattern_file_name, pattern_mode pattern_file_mode, bool text_or_binary )
 : m_pimpl( new Impl )
 {
-    bool match_or_save = (match_or_save ? pattern_mode::force_match : pattern_mode::force_save);
+    bool match_or_save = ( pattern_file_mode == pattern_mode::automatic ?
+                            !boost::unit_test::runtime_config::save_pattern() :
+                            ( pattern_file_mode == pattern_mode::force_match ) );
     if( !pattern_file_name.is_empty() ) {
         std::ios::openmode m = match_or_save ? std::ios::in : std::ios::out;
         if( !text_or_binary )
@@ -545,13 +547,6 @@ output_test_stream::output_test_stream( const_string pattern_file_name, pattern_
 
     m_pimpl->m_match_or_save    = match_or_save;
     m_pimpl->m_text_or_binary   = text_or_binary;
-}
-
-output_test_stream::output_test_stream( const_string pattern_file_name, bool match_or_save, bool text_or_binary )
-: output_test_stream( pattern_file_name,
-                      (match_or_save ? pattern_mode::force_match : pattern_mode::force_save),
-                      text_or_binary )
-{
 }
 
 //____________________________________________________________________________//
