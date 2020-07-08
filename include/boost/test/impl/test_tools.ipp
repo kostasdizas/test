@@ -18,6 +18,7 @@
 // Boost.Test
 #include <boost/test/test_tools.hpp>
 #include <boost/test/unit_test_log.hpp>
+#include <boost/test/unit_test_parameters.hpp>
 #include <boost/test/tools/context.hpp>
 #include <boost/test/tools/output_test_stream.hpp>
 
@@ -527,9 +528,10 @@ struct output_test_stream::Impl
 
 //____________________________________________________________________________//
 
-output_test_stream::output_test_stream( const_string pattern_file_name, bool match_or_save, bool text_or_binary )
+output_test_stream::output_test_stream( const_string pattern_file_name, pattern_mode pattern_file_mode, bool text_or_binary )
 : m_pimpl( new Impl )
 {
+    bool match_or_save = (match_or_save ? pattern_mode::force_match : pattern_mode::force_save);
     if( !pattern_file_name.is_empty() ) {
         std::ios::openmode m = match_or_save ? std::ios::in : std::ios::out;
         if( !text_or_binary )
@@ -543,6 +545,13 @@ output_test_stream::output_test_stream( const_string pattern_file_name, bool mat
 
     m_pimpl->m_match_or_save    = match_or_save;
     m_pimpl->m_text_or_binary   = text_or_binary;
+}
+
+output_test_stream::output_test_stream( const_string pattern_file_name, bool match_or_save, bool text_or_binary )
+: output_test_stream( pattern_file_name,
+                      (match_or_save ? pattern_mode::force_match : pattern_mode::force_save),
+                      text_or_binary )
+{
 }
 
 //____________________________________________________________________________//

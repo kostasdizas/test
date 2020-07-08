@@ -33,6 +33,11 @@
 namespace boost {
 namespace test_tools {
 
+enum class pattern_mode {
+    force_match,
+    force_save,
+};
+
 //! Class to be used to simplify testing of ostream-based output operations
 class BOOST_TEST_DECL output_test_stream : public wrap_stringstream::wrapped_stream {
     typedef unit_test::const_string const_string;
@@ -42,10 +47,23 @@ public:
     //!@param[in] pattern_file_name indicates the name of the file for matching. If the
     //!           string is empty, the standard input or output streams are used instead
     //!           (depending on match_or_save)
+    //!@param[in] pattern_file_mode if force_match, the pattern file will be read, otherwise if
+    //!           force_save it will be written.
+    //!@param[in] text_or_binary if false, opens the stream in binary mode. Otherwise the stream
+    //!           is opened with default flags and the carriage returns are ignored.
+    explicit        output_test_stream( const_string pattern_file_name = const_string(),
+                                        pattern_mode pattern_file_mode = pattern_mode::automatic,
+                                        bool         text_or_binary    = true );
+    //! Constructor
+    //!
+    //!@param[in] pattern_file_name indicates the name of the file for matching. If the
+    //!           string is empty, the standard input or output streams are used instead
+    //!           (depending on match_or_save)
     //!@param[in] match_or_save if true, the pattern file will be read, otherwise it will be
     //!           written
     //!@param[in] text_or_binary if false, opens the stream in binary mode. Otherwise the stream
     //!           is opened with default flags and the carriage returns are ignored.
+    //!@deprecated
     explicit        output_test_stream( const_string    pattern_file_name = const_string(),
                                         bool            match_or_save     = true,
                                         bool            text_or_binary    = true );
