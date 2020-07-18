@@ -136,7 +136,7 @@ BOOST_AUTO_TEST_CASE( test_result_reports )
             ? (runtime_config::save_pattern() ? PATTERN_FILE_NAME : "./baseline-outputs/" PATTERN_FILE_NAME )
             : framework::master_test_suite().argv[1] );
 
-    output_test_stream test_output( pattern_file_name, !runtime_config::save_pattern() );
+    output_test_stream test_output( pattern_file_name, pattern_mode::automatic );
     results_reporter::set_stream( test_output );
 
     test_suite* ts_0 = BOOST_TEST_SUITE( "0 test cases inside" );
@@ -308,7 +308,7 @@ BOOST_AUTO_TEST_CASE( test_result_reports_default_behaviour )
             ? (runtime_config::save_pattern() ? PATTERN_FILE_NAME_DEFAULT_BEHAVIOUR : "./baseline-outputs/" PATTERN_FILE_NAME_DEFAULT_BEHAVIOUR )
             : framework::master_test_suite().argv[2] );
 
-    output_test_stream test_output( pattern_file_name, !runtime_config::save_pattern() );
+    output_test_stream test_output( pattern_file_name, pattern_mode::automatic );
     results_reporter::set_stream( test_output );
 
     test_suite* ts_0 = BOOST_TEST_SUITE( "0 test cases inside" );

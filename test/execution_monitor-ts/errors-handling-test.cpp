@@ -159,7 +159,7 @@ BOOST_AUTO_TEST_CASE( test_errors_handling )
     pattern_file_name += "2";
 #endif
 
-    output_test_stream test_output( pattern_file_name, !runtime_config::save_pattern() );
+    output_test_stream test_output( pattern_file_name, pattern_mode::automatic );
 
     test_case* test = BOOST_TEST_CASE( &error_on_demand );
     test->p_default_status.value = test_unit::RS_ENABLED;

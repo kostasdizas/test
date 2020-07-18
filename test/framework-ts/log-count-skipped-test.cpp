@@ -28,7 +28,7 @@ namespace tt = boost::test_tools;
 struct skip_with_message
 {
     static bool default_enabled; // to control the status from outside
-  
+
     std::string message;
     skip_with_message(std::string m)
     : message(m) {}
@@ -82,7 +82,7 @@ void check( output_test_stream& output,
 
       output << "* " << log_format << "-format  *******************************************************************";
       output << std::endl;
-  
+
       framework::finalize_setup_phase( id );
       framework::run( id, false ); // do not continue the test tree to have the test_log_start/end
       output << std::endl;
@@ -123,14 +123,14 @@ BOOST_AUTO_TEST_CASE( test_logs )
             : framework::master_test_suite().argv[1] );
 
     output_test_stream_for_loggers test_output( pattern_file_name,
-                                                !runtime_config::save_pattern(),
+                                                pattern_mode::automatic,
                                                 true,
                                                 __FILE__ );
 
     test_case* tc1 = BOOST_TEST_CASE(test_1);
     test_case* tc2 = BOOST_TEST_CASE(test_2);
     test_case* tc3 = BOOST_TEST_CASE(test_3);
-  
+
     // add decorators to the tests, should happen only once. The status will be reset in the check.
     decorator::collector_t* decorator_collector = &(*utf::precondition(skip_with_message("-some precondition-")));
     decorator_collector->store_in( *tc2 );
@@ -146,7 +146,7 @@ BOOST_AUTO_TEST_CASE( test_logs )
         ts_main->add( tc3 );
 
     check( test_output, ts_main );
-  
+
     // change precondition
     skip_with_message::default_enabled = true;
     check( test_output, ts_main );
@@ -167,10 +167,10 @@ BOOST_AUTO_TEST_CASE( test_logs )
     test_suite* ts_sub2 = BOOST_TEST_SUITE( "child2" ); // conditionally disabled
         ts_sub2->add( tc_2_1 );
         ts_sub2->add( BOOST_TEST_CASE_NAME(test_1, "t2"));
-  
+
     ts_main2->add(ts_sub1);
     ts_main2->add(ts_sub2);
-  
+
 
     decorator_collector = &(* utf::disabled());
     decorator_collector->store_in( *ts_sub1 );
@@ -179,7 +179,7 @@ BOOST_AUTO_TEST_CASE( test_logs )
     decorator_collector = &(* utf::disabled());
     decorator_collector->store_in( *tc_2_1 );
     decorator_collector->reset();
-  
+
     decorator_collector = &(*utf::precondition(skip_with_message("-some precondition-")));
     decorator_collector->store_in( *ts_sub2 );
     decorator_collector->reset();
@@ -188,7 +188,7 @@ BOOST_AUTO_TEST_CASE( test_logs )
     skip_with_message::default_enabled = false;
     check( test_output, ts_main2 );
     // count disabled = 2 (main) + 2 (ts_sub1) + 2 (ts_sub2)
-  
+
     // change precondition
     skip_with_message::default_enabled = true;
     check( test_output, ts_main2 );

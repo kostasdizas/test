@@ -88,7 +88,7 @@ void check_global_fixture(
     log_level ll = log_successful_tests )
 {
     bool setup_error_caught = false;
-    
+
     {
       log_setup_teardown holder(output, log_format, ll);
 
@@ -214,7 +214,7 @@ BOOST_AUTO_TEST_CASE( some_test )
 
 
     output_test_stream_for_loggers test_output( pattern_file_name,
-                                                !runtime_config::save_pattern(),
+                                                pattern_mode::automatic,
                                                 true,
                                                 __FILE__ );
 

@@ -27,10 +27,10 @@ class output_test_stream_for_loggers : public output_test_stream {
 public:
     explicit output_test_stream_for_loggers(
         boost::unit_test::const_string    pattern_file_name = boost::unit_test::const_string(),
-        bool                              match_or_save     = true,
+        pattern_mode                      pattern_file_mode = pattern_mode::automatic,
         bool                              text_or_binary    = true,
         const std::string&                source_filename_  = __FILE__)
-    : output_test_stream(pattern_file_name, match_or_save, text_or_binary)
+    : output_test_stream(pattern_file_name, pattern_file_mode, text_or_binary)
     , source_filename(source_filename_)
     , basename(get_basename(source_filename_))
     {}

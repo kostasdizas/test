@@ -770,15 +770,14 @@ Regarding the meaning of these values [link ref_command_line_control see here].
 Option ['save_pattern] facilitates switching mode of operation for testing output streams. See __output_test_stream_tool__
 section for details on these tests.
 
-This parameter serves no particular purpose within the framework itself. It can be used by test modules relying
-on [classref boost::test_tools::output_test_stream] to implement testing logic. It has two modes of operation:
+This is used to define the behaviour of classref boost::test_tools::output_test_stream], when the
+`pattern_file_mode` argument is set to `pattern_mode::automatic`. It has two modes of operation:
 
 * save the pattern file (true).
 * and match against a previously stored pattern file (false).
 
 Default mode is 'match' (false).
 
-You can use this parameter to switch between these modes, by passing the parameter value to the `output_test_stream` constructor.
 The value of the command line parameter is available using call like this:
 ``
 bool is_save_pattern_flag_set = boost::unit_test::runtime_config::save_pattern();

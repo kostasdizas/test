@@ -204,7 +204,7 @@ BOOST_AUTO_TEST_CASE( test_logs )
             : save_arguments::get_pattern_file(PATTERN_FILE_NAME));
 
     output_test_stream_for_loggers test_output( pattern_file_name,
-                                                !save_arguments::save_pattern(),
+                                                pattern_mode::automatic,
                                                 true,
                                                 __FILE__ );
 
@@ -300,7 +300,7 @@ BOOST_AUTO_TEST_CASE( test_logs_junit_info_closing_tags )
             : save_arguments::get_pattern_file(PATTERN_FILE_NAME_JUNIT));
 
     output_test_stream_for_loggers test_output( pattern_file_name,
-                                                !save_arguments::save_pattern(),
+                                                pattern_mode::automatic,
                                                 true,
                                                 __FILE__ );
 
@@ -357,7 +357,7 @@ BOOST_AUTO_TEST_CASE( test_logs_context )
             : save_arguments::get_pattern_file(PATTERN_FILE_NAME_CONTEXT));
 
     output_test_stream_for_loggers test_output( pattern_file_name,
-                                                !save_arguments::save_pattern(),
+                                                pattern_mode::automatic,
                                                 true,
                                                 __FILE__ );
 

@@ -113,7 +113,7 @@ BOOST_AUTO_TEST_CASE( messages_in_datasets )
             : framework::master_test_suite().argv[1] );
 
     output_test_stream_for_loggers test_output( pattern_file_name,
-                                                !runtime_config::save_pattern(),
+                                                pattern_mode::automatic,
                                                 true,
                                                 __FILE__ );
 
